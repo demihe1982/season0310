@@ -1,0 +1,11 @@
+ logging:
+  level:
+   root: debug
+ server:
+  port: 8080
+  session-timeout: 60
+ spring:
+  redis:
+   host: 192.168.81.129
+   password: secret
+   port: 6379
