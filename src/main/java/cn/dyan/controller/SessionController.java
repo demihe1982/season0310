@@ -15,12 +15,12 @@ import java.util.Optional;
 public class SessionController {
 
     @RequestMapping("/distsession")
-    public void getSession(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public String getSession(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserInfoBean userInfoBean = Optional.ofNullable((UserInfoBean)request.getSession().getAttribute("userInfo")).orElse(null);
         if(userInfoBean !=null){
-            request.getRequestDispatcher("/distsession/listMyInfo").forward(request,response);
+            return "redirect:/distsession/listMyInfo";
         }
-        request.getRequestDispatcher("/user.html").forward(request,response);
+        return  "userinfo.html";
     }
 
     @RequestMapping("/distsession/listMyInfo")

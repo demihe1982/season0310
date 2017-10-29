@@ -15,11 +15,11 @@ import java.io.IOException;
 public class UserController {
 
     @RequestMapping(value = "/create",method = RequestMethod.POST)
-    public void createUserInfo(String name,Integer age, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String createUserInfo(String name,Integer age, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserInfoBean user = new UserInfoBean();
         user.setAge(age);
         user.setName(name);
         request.getSession().setAttribute("userInfo",user);
-        request.getRequestDispatcher("/distsession/listMyInfo").forward(request,response);
+        return "redirect:/distsession/listMyInfo";
     }
 }
