@@ -1,25 +1,25 @@
 package cn.dyan.controller;
 
 import cn.dyan.modal.UserInfoBean;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.validation.Valid;
-import java.util.Arrays;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String createUserInfo(@Valid UserInfoBean userInfoForm, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            Object[] errmsg = bindingResult.getAllErrors().stream().map(o->o.getObjectName()+" "+o.getCode()+" "+o.getDefaultMessage()).toArray();
-            return Arrays.toString(errmsg);
-        }
-        return "Success";
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    public void createUserInfo(String name,Integer age, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserInfoBean user = new UserInfoBean();
+        user.setAge(age);
+        user.setName(name);
+        request.getSession().setAttribute("userInfo",user);
+        request.getRequestDispatcher("/distsession/listMyInfo").forward(request,response);
     }
 }

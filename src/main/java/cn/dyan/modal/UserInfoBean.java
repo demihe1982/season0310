@@ -3,8 +3,9 @@ package cn.dyan.modal;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
-public class UserInfoBean {
+public class UserInfoBean implements Serializable {
     @NotNull
     @Max(99)
     @Min(18)
